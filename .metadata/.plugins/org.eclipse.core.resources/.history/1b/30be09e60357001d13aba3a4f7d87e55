@@ -1,0 +1,72 @@
+package entities;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import utilities.Operator;
+public class ELV {
+	//Attributes
+	public Double externalPressure;
+	public EquilibriumModel equilibriumModel;
+	public List<VaporPressureModel> vaporPressureModel;
+	//Constructor
+	public ELV(Double externalPressure, EquilibriumModel equilibriumModel, List<VaporPressureModel> vaporPressureModel) {
+		this.externalPressure = externalPressure;
+		this.equilibriumModel = equilibriumModel;
+		this.vaporPressureModel = vaporPressureModel;
+	}
+	//Methods
+	public List<List<Double>> ELVDiagramXY(){
+		List<List<Double>> diagram = new ArrayList<>();
+		List<Double> vectX = new ArrayList<>();
+		List<Double> vectY = new ArrayList<>();
+		vectX = Operator.domain(101, 0, 1);
+		System.out.println("foi interno");
+		List<State> diagramTXY = null;
+		System.out.println("foiinterno"+vectX.size());
+		Double y = null;
+		for (double i = 0; i < 101; i++) {
+			//y = this.ELVPoint(i/100).getY();
+			vectY.add(y);
+			System.out.println("foi>>>>>>>>"+i+(i < vectX.size()));
+		}
+		System.out.println("foiinterno");
+		diagram.add(vectX);
+		diagram.add(vectY);
+		return diagram;
+	}
+	public List<State> ELVDiagram(){
+		List<State> diagram = new ArrayList<>();
+		for(double i = 0; i<101; i++) {
+			Double x = i/100;
+			diagram.add(ELVPoint(x));
+		}
+		return diagram;
+	}
+	public State ELVPoint(Double x) {
+		Double tolerance = Math.pow(10, -3);
+		Double t1 = vaporPressureModel.get(0).temperature(externalPressure);
+		Double t2 = vaporPressureModel.get(1).temperature(externalPressure);
+		Double t = x*t1+(1-x)*t2;/*initial estimate*/
+		Double f = f(x,t);
+		int counter = 1;
+		while(f(x,t)>tolerance || counter<10) {
+			t = t-f(x,t)/df(x,t);
+			counter++;
+		}
+		Double y = x*vaporPressureModel.get(0).pressure(t)/externalPressure;
+		State State = new State(t,x,y);
+		return State;
+	}
+	public Double df(Double x, Double t) {
+		Double h = 0.1;
+		Double df = (f(x,t+h)-f(x,t-h))/(2*h);
+		return df;
+	}
+	public Double f(Double x, Double t) {
+		Double p1 = vaporPressureModel.get(0).pressure(t);
+		Double p2 = vaporPressureModel.get(1).pressure(t);
+		Double f = x*p1+(1-x)*p2-externalPressure;
+		return f;
+	}
+}

@@ -1,0 +1,8 @@
+INDEX VERSION 1.131+C:\Users\wwwma\Desktop\WS\Eclipse\Distillation\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+2222360129.index
+1092083813.index
+2856589372.index
+860703110.index
+427294833.index
+2271981814.index

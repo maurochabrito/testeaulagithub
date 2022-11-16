@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="entities.gamaPhiModels.GamaPhiApproach"/>
+    <fullyQualifiedTypeName name="entities.EquilibriumModel"/>
+    <fullyQualifiedTypeName name="entities.gamaPhiModels.GamaModel"/>
+    <fullyQualifiedTypeName name="utilities.Operator"/>
+    <fullyQualifiedTypeName name="entities.Distillation2"/>
+    <fullyQualifiedTypeName name="java.util.Vector"/>
+</qualifiedTypeNameHistroy>

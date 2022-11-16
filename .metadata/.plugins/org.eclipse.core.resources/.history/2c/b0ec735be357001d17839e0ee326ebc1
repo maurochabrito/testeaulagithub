@@ -1,0 +1,21 @@
+package application;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.Antoine;
+import entities.Distillation;
+import entities.ELV;
+import entities.EquilibriumModel;
+import entities.VaporPressureModel;
+import entities.gamaPhiModels.GamaModel;
+import entities.gamaPhiModels.GamaPhiApproach;
+
+public class Main {
+
+	public static void main(String[] args) {
+		int y = (int)(0.9972*100);
+		System.out.println(y);
+	}
+
+}

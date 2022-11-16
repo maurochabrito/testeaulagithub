@@ -1,0 +1,8 @@
+package utilities;
+
+public class Distillation {
+	protected Double z;
+	protected Double xb;
+	protected Double xd;
+	protected ELV brain;
+}

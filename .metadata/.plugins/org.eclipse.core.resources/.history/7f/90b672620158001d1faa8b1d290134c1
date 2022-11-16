@@ -1,0 +1,25 @@
+package application;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
+import entities.Antoine;
+import entities.Distillation3;
+import entities.ELV;
+import entities.EquilibriumModel;
+import entities.VaporPressureModel;
+import entities.gamaPhiModels.GamaModel;
+import entities.gamaPhiModels.GamaPhiApproach;
+
+public class Main {
+
+	public static void main(String[] args) {
+		double[] elvDiagramX = new double[0];
+		for(double i = 0.0; i < 101.0; i++) {
+			elvDiagramX[(int)i] = i/100;
+			System.out.println(i);
+		}
+	}
+
+}

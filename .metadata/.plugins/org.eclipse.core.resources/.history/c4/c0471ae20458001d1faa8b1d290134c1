@@ -1,0 +1,47 @@
+package application;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.Antoine;
+import entities.Distillation;
+import entities.ELV;
+import entities.EquilibriumModel;
+import entities.VaporPressureModel;
+import entities.gamaPhiModels.GamaModel;
+import entities.gamaPhiModels.GamaPhiApproach;
+
+public class Main2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//Instantiating VaporPressureModels
+		List<VaporPressureModel> vaporPressureModel = new ArrayList();
+		List<Double> parameters1 = new ArrayList();
+		parameters1.add(18.9119);
+		parameters1.add(3803.98);
+		parameters1.add(-41.68);
+		vaporPressureModel.add(new Antoine(parameters1));
+		List<Double> parameters2 = new ArrayList();
+		parameters2.add(18.3036);
+		parameters2.add(38.1644);
+		parameters2.add(-46.13);
+		vaporPressureModel.add(new Antoine(parameters2));
+		//Instatiating EquilibriumModel
+		EquilibriumModel equilibriumModel = new GamaPhiApproach();
+        List<Double> parameters3 = new ArrayList();
+        parameters3.add(1.6022);
+        parameters3.add(0.7947);
+        ((GamaPhiApproach) equilibriumModel).setGamaModel(new GamaModel(parameters3));
+        //Instantiating ELV
+        ELV brain = new ELV(760.0, equilibriumModel, vaporPressureModel);
+        //Instatiating Distillation
+        Double xd = 0.8;
+        Double xb = 0.1;
+		System.out.println("foi0");
+        Distillation distillation = new Distillation(xd, xb, brain);
+		System.out.println("foi1");
+        System.out.println(distillation.mccabeThieleStages());
+	}
+
+}

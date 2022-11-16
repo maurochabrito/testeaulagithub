@@ -1,0 +1,73 @@
+package entities;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import utilities.Operator;
+
+public class Distillation3 {
+	//Attributtes
+	protected Double z;
+	protected Double xb;
+	protected Double xd;
+	protected ELV brain;
+	//Constructors
+	public Distillation3(Double xb, Double xd, ELV brain) {
+		this.xb = xb;
+		this.xd = xd;
+		this.brain = brain;
+	}
+
+	//Getters and setters
+	public Double getZ() {
+		return z;
+	}
+	public void setZ(Double z) {
+		this.z = z;
+	}
+	public Double getXb() {
+		return xb;
+	}
+	public void setXb(Double xb) {
+		this.xb = xb;
+	}
+	public Double getXd() {
+		return xd;
+	}
+	public void setXd(Double xd) {
+		this.xd = xd;
+	}
+	//Methods
+	public String mccabeThieleStages() {
+		StringBuilder sb = new StringBuilder();
+		List<State> plateList = this.mccabeThiele2();
+		System.out.println("foi2");
+		for(int i = 0; i<plateList.size(); i++) {
+			sb.append("Plate ");
+			sb.append(i+1);
+			sb.append(" --> "+plateList.get(i).toString());
+		}
+		return sb.toString();
+	}
+	public List<State> mccabeThiele2(){
+		List<State> plateList = new ArrayList();
+		Double currentY = xd;
+		Double currentX = xd;
+		Double currentT = null;
+		double x;
+		System.out.println(":D");
+		while(currentX > xb) {
+			x = 1.0;
+			System.out.println("D:");
+			while(this.brain.ELVPoint(x).getY() > currentY) {
+				System.out.println("(-:");
+				x-=0.01;
+			}
+			currentX = x;
+			currentT = this.brain.ELVPoint(x).getT();
+			plateList.add(new State(currentX,currentY,currentT));
+			currentY = currentX;
+		}
+		return plateList;
+	}
+}
